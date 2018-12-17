@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.5.+'
+        springBootVersion = '2.1.1.RELEASE'
     }
     repositories {
 
@@ -42,8 +42,8 @@ dependencies {
     implementation('org.webjars:bootstrap:4.1.3')
     implementation('org.webjars:jquery:3.3.1-1')*/
 
-
-    runtimeOnly('org.springframework.boot:spring-boot-devtools:v2.0.0.M5')
+    // 此包会导致 BlockingQueue 在多线程中 不可用.... 不知道为什么...
+//    runtimeOnly('org.springframework.boot:spring-boot-devtools')
     runtimeOnly('com.h2database:h2')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }

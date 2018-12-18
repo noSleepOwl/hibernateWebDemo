@@ -3,6 +3,7 @@ package com.cn.sleep.study.consoleimpl;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.filter.Filter;
 import ch.qos.logback.core.spi.FilterReply;
+import com.alibaba.druid.sql.SQLUtils;
 
 import java.sql.Date;
 import java.text.DateFormat;
@@ -11,6 +12,7 @@ public class LogFilter extends Filter<ILoggingEvent> {
     @Override
     public FilterReply decide(ILoggingEvent event) {
         if (event.getLoggerName().equals("jdbc.sqlonly")) {
+
             createMessage(event, 1);
         }
         if (event.getLoggerName().equals("org.hibernate.type.descriptor.sql.BasicBinder")) {
@@ -20,8 +22,13 @@ public class LogFilter extends Filter<ILoggingEvent> {
     }
 
     private LoggerMessage createMessage(ILoggingEvent event, int type) {
+        String msg = event.getMessage();
+        if (type == 1) {
+            msg = SQLUtils.formatMySql(msg);
+        }
+
         LoggerMessage loggerMessage = new LoggerMessage(
-                event.getMessage()
+                msg
                 , DateFormat.getDateTimeInstance().format(new Date(event.getTimeStamp())),
                 event.getThreadName(),
                 event.getLoggerName(),

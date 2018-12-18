@@ -27,7 +27,7 @@ $(function () {
                     var body = JSON.parse(greeting.body);
                     let msg = createConnsoleInfo(body);
                     $("#content").append(msg);
-                    hljs.configure({useBR: true});
+                    // hljs.configure({useBR: true});
                     $('pre code').each(function (i, block) {
                         hljs.highlightBlock(block);
                     });
@@ -71,7 +71,7 @@ $(function () {
 
     function createConnsoleInfo(logMessage) {
         if (logMessage.type == 1) {
-
+            // let sqlFormat = "<ul><li>" + logMessage.body.replace(/\n/g, "\n</li><li>") + "\n</li></ul>"
             let msg = `<code class="sql">${logMessage.body}</code>`;
             return `<p>${ getLabel_sql(logMessage.timestamp)}<pre >${msg}</pre></p>`;
         }
@@ -109,11 +109,11 @@ $(function () {
         $('#content').animate({scrollTop: scrollHeight}, 200);
     })
 
-    $("#left_console_button").click(() => {
+    $("#right_console_button").click(() => {
         consoleStyleRest()
         $('#hql_demo_console').animate({"margin-left": "59%"}, 200);
     })
-    $("#right_console_button").click(() => {
+    $("#left_console_button").click(() => {
         consoleStyleRest()
         $('#hql_demo_console').animate({"margin-right": "59%"}, 200);
     })

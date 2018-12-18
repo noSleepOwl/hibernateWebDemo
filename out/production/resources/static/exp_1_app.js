@@ -1,5 +1,5 @@
 $(function () {
-
+    loadStudent();
     $("#submitButton").click(() => {
         $("#studentForm").ajaxSubmit(function (res) {
             loadStudent();

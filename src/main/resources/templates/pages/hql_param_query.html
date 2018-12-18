@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<th:block th:fragment="HQL_PARAM_QUERY">
+    <script type="text/javascript">
+        $('#hqlCode pre code').each((i, block) => {
+            hljs.highlightBlock(block);
+        })
+
+        $("button[data-bind]").each(function () {
+            let self = $(this);
+            let bindTar = self.attr('data-bind');
+            let hql = $(`code[data-name=${bindTar}]`).text();
+            let outPut = $(`textarea[data-out=${bindTar}]`);
+            self.click(() => {
+                $.post(`${webctx}hqlExample/paramQuery`, {hql: hql, id: $('#idSpan').text()}, function (data) {
+                    data = JSON.stringify(data);
+                    outPut.text(data);
+                });
+            });
+        })
+    </script>
+    <div class="panel-heading">使用HQL进行查询(带参数)</div>
+    <div class="panel-body">
+        <div id="hqlCode">
+           <pre>
+               <code data-name="select_code_demo_1" class="hljs sql">
+                   select st from Model st where st.id=:id  order by st.id
+               </code>
+               <h3><span class="label label-primary">id</span><span id="idSpan">402881f267b9e4a60167b9e4e5db0000</span></h3>
+               <button data-bind="select_code_demo_1" class="btn btn-info pull-right">执行</button>
+               <textarea class="form-control" style="resize: none;" rows="10" data-out="select_code_demo_1"></textarea>
+           </pre>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>

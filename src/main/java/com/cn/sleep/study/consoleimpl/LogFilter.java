@@ -10,7 +10,7 @@ import java.text.DateFormat;
 public class LogFilter extends Filter<ILoggingEvent> {
     @Override
     public FilterReply decide(ILoggingEvent event) {
-        if (event.getLoggerName().equals("org.hibernate.SQL")) {
+        if (event.getLoggerName().equals("jdbc.sqlonly")) {
             createMessage(event, 1);
         }
         if (event.getLoggerName().equals("org.hibernate.type.descriptor.sql.BasicBinder")) {

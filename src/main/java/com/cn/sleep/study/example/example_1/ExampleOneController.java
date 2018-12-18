@@ -1,4 +1,4 @@
-package com.cn.sleep.study.example_1;
+package com.cn.sleep.study.example.example_1;
 
 import com.cn.sleep.study.test.Model;
 import com.cn.sleep.study.test.Repository;

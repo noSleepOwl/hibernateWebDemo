@@ -50,6 +50,7 @@ $(function () {
         currentPage = next;
         $.post(next, function (page) {
             $("#form_context").html(page);
+            code_format.format();
         }, 'html')
     }
 
@@ -120,6 +121,8 @@ $(function () {
     $("#rest_console_button").click(() => {
         consoleStyleRest()
     })
+
+
 });
 
 

@@ -68,6 +68,8 @@ $(function () {
     museum.loadAfter.push(() => {
         $(' body').scrollspy('refresh')
     })
+
+
 });
 
 

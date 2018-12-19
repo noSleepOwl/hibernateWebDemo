@@ -1,5 +1,5 @@
 server:
-  port: 5000
+  port: 5001
 spring:
   datasource:
     url: jdbc:log4jdbc:h2:file:~/.h2/testdb

@@ -32,7 +32,7 @@ $(function () {
                         hljs.highlightBlock(block);
                     });
                     var scrollHeight = $('#content').prop("scrollHeight");
-                    $('#content').animate({scrollTop: scrollHeight}, 200);
+                    $('#content').animate({scrollTop: scrollHeight}, 0);
 
                 }, {
                     token: "kltoen"

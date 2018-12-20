@@ -1,4 +1,4 @@
-package com.cn.sleep.study.example.shigongwen.savealldemo.model;
+package com.cn.sleep.study.example.shigongwen.model;
 
 import com.cn.sleep.study.example.shigongwen.base.BaseModel;
 
@@ -15,6 +15,7 @@ public class Student extends BaseModel {
     private UserInfo userInfo;
     /**
      * CascadeType.PERSIST 级联更新
+     * CascadeType.REMOVE 级联删除配置
      */
     @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     @JoinColumn(name = "student_id")

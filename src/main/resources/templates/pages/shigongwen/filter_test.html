@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+
+<th:block th:fragment="FILTER_TEST_DEMO">
+    <div class="panel-heading">登陆模拟</div>
+    <div class="panel-body">
+        <div class="col-sm-12">
+            <form id="userForm" th:action="@{/filterTest/simpleLogin}" method="post">
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <label>姓名</label>
+                        <input type="text" name="name" class="form-control" placeholder="姓名"/>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>id</label>
+                        <input type="text" name="id" class="form-control" placeholder="id"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <button type="button" id="simple_login" class="btn btn-default">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="panel-heading">权限查询</div>
+    <div class="panel-body">
+        <div class="col-sm-12">
+            <button type="button" id="get_home_work" class="btn btn-default">获取作业</button>
+        </div>
+        <div class="col-sm-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>createTime</th>
+                    <th>updateTime</th>
+                    <th>content</th>
+                </tr>
+                </thead>
+                <tbody id="home_work_content">
+                
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script th:src="@{/shigongwen/filter_test_app.js}"></script>
+</th:block>
+
+</body>
+</html>

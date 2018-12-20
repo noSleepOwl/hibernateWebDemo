@@ -1,15 +1,27 @@
-package com.cn.sleep.study.example.shigongwen.savealldemo.model;
+package com.cn.sleep.study.example.shigongwen.model;
 
-import javax.persistence.Embeddable;
-
-/**
- * 用户信息
- */
-@Embeddable
-public class UserInfo {
+public class User {
+    private String id;
     private String name;
     private Integer age;
     private String code;
+    private Integer role;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
 
     public String getName() {
         return name;

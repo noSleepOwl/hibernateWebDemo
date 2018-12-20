@@ -14,6 +14,7 @@ public class Controller {
     private static final String HQL_QUERY = "pages/hql_query :: HQL_QUERY";
     private static final String HQL_PARAM_QUERY = "pages/hql_param_query :: HQL_PARAM_QUERY";
     private static final String SAVE_ALL_EXAMPLE = "pages/shigongwen/save_all :: SAVE_ALL_EXAMPLE";
+    private static final String FILTER_TEST_DEMO = "pages/shigongwen/filter_test :: FILTER_TEST_DEMO";
 
     @Autowired
     private Repository repository;
@@ -50,10 +51,18 @@ public class Controller {
         ModelAndView modelAndView = new ModelAndView(HQL_PARAM_QUERY);
         return modelAndView;
     }
+
     @RequestMapping("save_all_example")
     @ResponseBody
     public ModelAndView save_all_example() {
         ModelAndView modelAndView = new ModelAndView(SAVE_ALL_EXAMPLE);
+        return modelAndView;
+    }
+
+    @RequestMapping("filter_test_demo")
+    @ResponseBody
+    public ModelAndView filter_test_demo() {
+        ModelAndView modelAndView = new ModelAndView(FILTER_TEST_DEMO);
         return modelAndView;
     }
 }

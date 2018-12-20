@@ -1,7 +1,7 @@
 package com.cn.sleep.study.example.shigongwen.savealldemo.controller;
 
 import com.cn.sleep.study.example.shigongwen.base.BaseController;
-import com.cn.sleep.study.example.shigongwen.savealldemo.model.Student;
+import com.cn.sleep.study.example.shigongwen.model.Student;
 import com.cn.sleep.study.example.shigongwen.savealldemo.service.SaveAllModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

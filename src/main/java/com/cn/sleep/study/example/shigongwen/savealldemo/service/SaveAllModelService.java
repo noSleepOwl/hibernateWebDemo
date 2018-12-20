@@ -1,8 +1,8 @@
 package com.cn.sleep.study.example.shigongwen.savealldemo.service;
 
-import com.cn.sleep.study.example.shigongwen.savealldemo.model.HomeWork;
-import com.cn.sleep.study.example.shigongwen.savealldemo.model.Student;
-import com.cn.sleep.study.example.shigongwen.savealldemo.model.UserInfo;
+import com.cn.sleep.study.example.shigongwen.model.HomeWork;
+import com.cn.sleep.study.example.shigongwen.model.Student;
+import com.cn.sleep.study.example.shigongwen.model.UserInfo;
 import com.cn.sleep.study.example.shigongwen.savealldemo.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,9 @@ public class SaveAllModelService {
     @Autowired
     private StudentRepository studentRepository;
 
+    /**
+     * 保存学生
+     */
     public Map<String, Object> saveStudent(Map<String, Object> param) {
         Student student = new Student();
         UserInfo userInfo = new UserInfo();
@@ -40,7 +43,7 @@ public class SaveAllModelService {
                 return homeWork;
             }).forEach(o -> student.getHomeWorkList().add(o));
         }
-
+        //级联保存设置之后,只需要保存上层的model相关的模型依次保存
         studentRepository.save(student);
         return new HashMap<String, Object>() {
             {

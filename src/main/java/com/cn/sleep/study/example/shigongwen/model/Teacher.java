@@ -1,4 +1,4 @@
-package com.cn.sleep.study.example.shigongwen.savealldemo.model;
+package com.cn.sleep.study.example.shigongwen.model;
 
 import com.cn.sleep.study.example.shigongwen.base.BaseModel;
 

@@ -1,7 +1,3 @@
-function clearConsole() {
-    $("#content").empty();
-}
-
 $(function () {
     const label_sql = '<span class="label label-primary">sql</span>';
     const label_param = '<span class="label label-info">param</span>';
@@ -100,7 +96,7 @@ $(function () {
 
     $("#nextEx").click(nextPage);
     $("#clear_console_button").click(() => {
-        clearConsole();
+        code_format.clearConsole();
     })
     $("#up_console_button").click(() => {
         $('#content').animate({scrollTop: 0}, 200);

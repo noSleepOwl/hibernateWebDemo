@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Component
@@ -22,29 +26,42 @@ public class RouterAop {
     public void indexPage() {
     }
 
-    private void getAllPath(ProceedingJoinPoint joinPoint) {
+    private MuseumModel createMuseum(RequestMapping mapping, Museum museum) {
+        MuseumModel museumModel = new MuseumModel();
 
+        String name = "";
+        int order = 0;
+        if (museum == null) {
+            name = mapping.value()[0];
+        } else {
+            name = museum.value();
+            order = museum.order();
+        }
+
+        museumModel.setName(name);
+        museumModel.setOrder(order);
+        museumModel.setPath(mapping.value()[0]);
+        return museumModel;
+    }
+
+    private void getAllPath(ProceedingJoinPoint joinPoint) {
         RequestMapping requestMapping = Controller.class
                 .getAnnotation(RequestMapping.class);
-        String[] urls = Stream.of(Controller.class.getDeclaredMethods())
-                .filter(o -> {
-                    System.out.println(o.getName());
-                    return o.getAnnotation(RequestMapping.class) != null;
-                })
+        List<MuseumModel> museumModels = Stream.of(Controller.class.getDeclaredMethods())
+                .filter(o -> o.getAnnotation(RequestMapping.class) != null)
                 .filter(o -> !o.getName().equals(joinPoint.getSignature().getName()))
-                .map(o -> o.getAnnotation(RequestMapping.class))
-                .map(RequestMapping::value)
-                .flatMap(Stream::of)
+                .map(o -> {
+                    RequestMapping mapping = o.getAnnotation(RequestMapping.class);
+                    Museum museum = o.getAnnotation(Museum.class);
+                    return createMuseum(mapping, museum);
+                })
                 .map(o -> {
                     if (requestMapping != null) {
-                        return Stream.of(requestMapping.value()).map(curl -> curl + o).toArray();
-                    } else {
-                        return new String[]{o};
+                        o.setPath(requestMapping.value() + o.getPath());
                     }
-                })
-                .flatMap(Stream::of)
-                .toArray(String[]::new);
-        request.setAttribute("examplePages", urls);
+                    return o;
+                }).collect(Collectors.toList());
+        request.setAttribute("examplePages", museumModels);
     }
 
     @Around(value = "indexPage()")

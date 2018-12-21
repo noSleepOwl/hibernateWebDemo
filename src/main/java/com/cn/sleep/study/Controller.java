@@ -1,5 +1,6 @@
 package com.cn.sleep.study;
 
+import com.cn.sleep.study.pagerouter.Museum;
 import com.cn.sleep.study.test.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ public class Controller {
     }
 
     @RequestMapping("example_2")
+    @Museum("测试例子_2")
     @ResponseBody
     public ModelAndView ex_2Page() {
         ModelAndView modelAndView = new ModelAndView(EXAMPLE_2);
@@ -39,6 +41,7 @@ public class Controller {
     }
 
     @RequestMapping("hql_query")
+    @Museum("HQL查询例子")
     @ResponseBody
     public ModelAndView hql_query() {
         ModelAndView modelAndView = new ModelAndView(HQL_QUERY);
@@ -46,6 +49,7 @@ public class Controller {
     }
 
     @RequestMapping("hql_param_query")
+    @Museum("HQL带参数查询例子")
     @ResponseBody
     public ModelAndView hql_param_query() {
         ModelAndView modelAndView = new ModelAndView(HQL_PARAM_QUERY);
@@ -53,6 +57,7 @@ public class Controller {
     }
 
     @RequestMapping("save_all_example")
+    @Museum("级联更新和保存")
     @ResponseBody
     public ModelAndView save_all_example() {
         ModelAndView modelAndView = new ModelAndView(SAVE_ALL_EXAMPLE);
@@ -60,6 +65,7 @@ public class Controller {
     }
 
     @RequestMapping("filter_test_demo")
+    @Museum("模型过滤器")
     @ResponseBody
     public ModelAndView filter_test_demo() {
         ModelAndView modelAndView = new ModelAndView(FILTER_TEST_DEMO);

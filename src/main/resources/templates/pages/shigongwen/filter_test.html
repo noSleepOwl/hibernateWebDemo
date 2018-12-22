@@ -7,50 +7,114 @@
 <body>
 
 <th:block th:fragment="FILTER_TEST_DEMO">
-    <div class="panel-heading">登陆模拟</div>
-    <div class="panel-body">
-        <div class="col-sm-12">
-            <form id="userForm" th:action="@{/filterTest/simpleLogin}" method="post">
-                <div class="form-group">
-                    <div class="col-sm-4">
-                        <label>姓名</label>
-                        <input type="text" name="name" class="form-control" placeholder="姓名"/>
-                    </div>
-                    <div class="col-sm-4">
-                        <label>id</label>
-                        <input type="text" name="id" class="form-control" placeholder="id"/>
-                    </div>
+<div class="panel-heading">登陆模拟</div>
+<div class="panel-body">
+    <div class="col-sm-12">
+        <form id="userForm" th:action="@{/filterTest/simpleLogin}" method="post">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <label>姓名</label>
+                    <input type="text" name="name" class="form-control" placeholder="姓名"/>
                 </div>
-                <div class="form-group">
-                    <div class="col-sm-6">
-                        <button type="button" id="simple_login" class="btn btn-default">提交</button>
-                    </div>
+                <div class="col-sm-4">
+                    <label>id</label>
+                    <input type="text" name="id" class="form-control" placeholder="id"/>
                 </div>
-            </form>
-        </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <button type="button" id="simple_login" class="btn btn-default">提交</button>
+                </div>
+            </div>
+        </form>
     </div>
-    <div class="panel-heading">权限查询</div>
-    <div class="panel-body">
-        <div class="col-sm-12">
-            <button type="button" id="get_home_work" class="btn btn-default">获取作业</button>
-        </div>
-        <div class="col-sm-12">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>id</th>
-                    <th>createTime</th>
-                    <th>updateTime</th>
-                    <th>content</th>
-                </tr>
-                </thead>
-                <tbody id="home_work_content">
-                
-                </tbody>
-            </table>
-        </div>
+</div>
+<div class="panel-heading">权限查询</div>
+<div class="panel-body">
+    <div class="col-sm-12">
+        <button type="button" id="get_home_work" class="btn btn-default">获取作业</button>
     </div>
-    <script th:src="@{/shigongwen/filter_test_app.js}"></script>
+    <div class="col-sm-12">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>createTime</th>
+                <th>updateTime</th>
+                <th>content</th>
+            </tr>
+            </thead>
+            <tbody id="home_work_content">
+            
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="panel-heading">配置代码</div>
+<div class="panel-body">
+    <div class="col-sm-12">
+        <pre data-code-format="java">
+
+/**
+ * @ParamDef 中的 type 属性 需要注意 , 其为小写... 大写会报错
+ * 过滤器之只能做简单的查询过滤,会跟随实体进行实时的sql 生成
+ * 包级别的注释  定义在 package-info.java 文件中
+ * */
+@FilterDefs({  // 定义过滤器列表
+        @FilterDef(name = Const.USER_FILTER, parameters = { // 过滤器定义  name 过滤器名称 项目中唯一  ,parameters 参数列表
+                //参数 name 参数名称  , type 参数类型
+                @ParamDef(name = Const.USER_FILTER_PARAM_USER_ID, type = "string")
+        })
+})
+package com.cn.sleep.study.example.shigongwen.model;
+
+import com.cn.sleep.study.example.shigongwen.hibernatepowerfilter.Const;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.FilterDefs;
+import org.hibernate.annotations.ParamDef;
+        </pre>
+    </div>
+    <div class="col-sm-6">
+            <pre data-code-format="java">
+/**
+ *在实体上使用定义该过滤器的行为
+ *name = 引用的过滤器   condition 行为
+ */
+@Entity
+@Filter(name = Const.USER_FILTER, condition = Const.HOME_WORK_CONDITION)
+public class HomeWork extends BaseModel {
+    ....
+}
+            </pre>
+    </div>
+    <div class="col-sm-6">
+            <pre data-code-format="java">
+//为方便调用
+public interface Const {
+    String USER_FILTER = "userFilter";
+    String USER_FILTER_PARAM_USER_ID = "userId";
+// 此处使用的也是原生的sql语句并非 hql
+    String HOME_WORK_CONDITION = ":" + USER_FILTER_PARAM_USER_ID + "=STUDENT_ID ";
+}
+            </pre>
+    </div>
+    <div class="col-sm-12">
+            <pre data-code-format="java">
+User user = getUser();
+// 查询方法执行之前 设置过滤器
+if (Objects.nonNull(user)) {
+  //  filter 是hibernate 实现的所以需要使用hibernate的session
+    Filter filter = entityManager.unwrap(Session.class).enableFilter(USER_FILTER);
+    filter.setParameter(USER_FILTER_PARAM_USER_ID, user.getId());
+}
+// 在过滤器加载之后,所有使用此模型进行的查询都将在where 语句中执行 过滤器 condition 中定义的语句
+entityManager.createQuery("select hm from HomeWork hm", HomeWork.class).getResultList();
+// 执行结束之后将过滤器移除
+entityManager.unwrap(Session.class).disableFilter(USER_FILTER);
+            </pre>
+    </div>
+</div>
+<script th:src="@{/shigongwen/filter_test_app.js}"></script>
 </th:block>
 
 </body>

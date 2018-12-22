@@ -2,17 +2,21 @@ server:
   port: 5001
 spring:
   datasource:
-#    url: jdbc:log4jdbc:h2:file:~/.h2/testdb
-#    username: sa
-#    password: 123456
-#    driver-class-name: net.sf.log4jdbc.DriverSpy
+    #    url: jdbc:log4jdbc:h2:file:~/.h2/testdb
+    #    username: sa
+    #    password: 123456
+    #    driver-class-name: net.sf.log4jdbc.DriverSpy
     url: jdbc:log4jdbc:mysql://192.168.1.114:3306/test?useUnicode=true&autoReconnect=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Hongkong
     username: root
     password: 123456
     driver-class-name: net.sf.log4jdbc.DriverSpy
+    data: classpath:sql/init-sql.sql
+    initialization-mode: always
+    continue-on-error: true
+    sql-script-encoding: UTF-8
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       format_sql: true
     show-sql: true
 

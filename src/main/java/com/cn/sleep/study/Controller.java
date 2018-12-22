@@ -17,6 +17,7 @@ public class Controller {
     private static final String SAVE_ALL_EXAMPLE = "pages/shigongwen/save_all :: SAVE_ALL_EXAMPLE";
     private static final String FILTER_TEST_DEMO = "pages/shigongwen/filter_test :: FILTER_TEST_DEMO";
     private static final String SUBSELECT_ENTITY_TEST = "pages/shigongwen/subselect_entity_test :: SUBSELECT_ENTITY_TEST";
+    private static final String IMMUTABLE_MODEL = "pages/shigongwen/immutable :: IMMUTABLE_MODEL";
 
     @Autowired
     private Repository repository;
@@ -78,6 +79,14 @@ public class Controller {
     @ResponseBody
     public ModelAndView subselect_entity_test() {
         ModelAndView modelAndView = new ModelAndView(SUBSELECT_ENTITY_TEST);
+        return modelAndView;
+    }
+
+    @RequestMapping("immutable_model")
+    @Museum("实体映射策略配置")
+    @ResponseBody
+    public ModelAndView immutable_model() {
+        ModelAndView modelAndView = new ModelAndView(IMMUTABLE_MODEL);
         return modelAndView;
     }
 }

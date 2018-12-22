@@ -17,9 +17,11 @@ public abstract class BaseModel {
     @GeneratedValue(generator = "user-uuid")
     @Column(name = "id", nullable = false)
     private String id;
+    // 在创建的时候自动生成一个创建时间保存的数据库中
     @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     private Date createTime;
+    // 在执行更新操作的时候更新一个时间保存到数据库中
     @Temporal(TemporalType.TIMESTAMP)
     @UpdateTimestamp
     private Date updateTime;

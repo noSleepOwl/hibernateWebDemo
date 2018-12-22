@@ -28,7 +28,7 @@ public class HqlQueryService {
     public Object paramQuery(Map<String, Object> map) {
         String hql = map.get("hql").toString().trim();
         map.remove("hql");
-        Query query = entityManager.createQuery(hql);
+        Query query = getSession().createQuery(hql);
         map.forEach(query::setParameter);
         return query.getResultList();
     }

@@ -13,7 +13,7 @@ let code_format = {
         $('body pre[data-code-format]').each(function () {
             let self = $(this),
                 language = self.attr('data-code-format'),
-                code = self.text(),
+                code = self.text().trim(),
                 type = self.data('type'),
                 showBack = self.data('showBack'),
                 argumentNames = self.data('argumentNames');

@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="75486be9-5ccf-457d-9c97-c364fe3142b7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cn/sleep/study/example/shigongwen/model/course/Course.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cn/sleep/study/example/shigongwen/model/course/CourseInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cn/sleep/study/example/shigongwen/model/investigate/HomeWorkInvestigate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cn/sleep/study/example/shigongwen/model/investigate/StudentHomeWork.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cn/sleep/study/example/shigongwen/model/video/CourseVideo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cn/sleep/study/example/shigongwen/model/video/MissionVideo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/cn/sleep/study/example/shigongwen/model/video/Video.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/shigongwen/subselect_entity_test.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/pages/shigongwen/subselect_entity_test.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cn/sleep/study/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cn/sleep/study/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cn/sleep/study/consoleimpl/LogFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cn/sleep/study/consoleimpl/LogFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cn/sleep/study/example/hqlquery/HqlQueryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cn/sleep/study/example/hqlquery/HqlQueryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/cn/sleep/study/example/shigongwen/savealldemo/repository/StudentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/cn/sleep/study/example/shigongwen/savealldemo/repository/StudentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/app_museum.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/app_museum.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/code_format.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/code_format.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/pages/hql_param_query.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/pages/hql_param_query.html" afterDir="false" />
-    </list>
+    <list default="true" id="75486be9-5ccf-457d-9c97-c364fe3142b7" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -155,8 +134,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/pages/hql_param_query.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="370" column="33" selection-start-line="370" selection-start-column="33" selection-end-line="370" selection-end-column="33" />
+            <state relative-caret-position="360">
+              <caret line="370" column="38" lean-forward="true" selection-start-line="370" selection-start-column="38" selection-end-line="370" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -738,10 +717,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="136" />
-    <option name="y" value="365" />
+    <option name="x" value="-6" />
     <option name="width" value="1936" />
-    <option name="height" value="963" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -934,8 +912,8 @@
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545456891535" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../LZRoomInteractionTeacher" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545457105770" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../lztransferinterface" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -1060,12 +1038,12 @@
       <workItem from="1545198394708" duration="11070000" />
       <workItem from="1545280524661" duration="7240000" />
       <workItem from="1545354367421" duration="9817000" />
-      <workItem from="1545442006661" duration="12580000" />
+      <workItem from="1545442006661" duration="12849000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="89505000" />
+    <option name="totallyTimeSpent" value="89774000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1576,8 +1554,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/pages/hql_param_query.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="370" column="33" selection-start-line="370" selection-start-column="33" selection-end-line="370" selection-end-column="33" />
+        <state relative-caret-position="360">
+          <caret line="370" column="38" lean-forward="true" selection-start-line="370" selection-start-column="38" selection-end-line="370" selection-end-column="38" />
         </state>
       </provider>
     </entry>

@@ -31,14 +31,19 @@ let code_format = {
         })
     },
     hqlShowBack: (self, showBack, argumentNames, code) => {
-        let inputs = argumentNames.split(',').map(code_format.createInput).join("");
-        let form = code_format.createForm(inputs, code);
+        let inputs = "";
+        if (argumentNames) {
+            inputs = argumentNames.split(',').map(code_format.createInput).join("");
+        }
+
+        let form = code_format.createForm(inputs, code, self);
         form = $(form);
+
         $('button', form).click(() => {
             // code_format.clearConsole();
             code_format.submit(form, showBack);
         });
-        self.parent().before(form);
+        self.parent().after(form);
     },
     createInput: (name) => {
         return `<div class="form-group">
@@ -48,14 +53,22 @@ let code_format = {
                         </div>
                     </div>`;
     },
-    createForm: (inputs, code) => {
+    createForm: (inputs, code, codeContent) => {
+        let btn = 'btn btn-info pull-right';
+        let btnContent = 'col-sm-offset-8 col-sm-4';
+        let buttonStyle = '';
+        if (!inputs) {
+            btn = 'btn btn-info btn-sm btn-block pull-right';
+            btnContent = 'col-sm-12';
+            buttonStyle = `style="height: ${codeContent.outerHeight()}px;"`;
+        }
         return `<div class="col-sm-3">
                 <form class="form-horizontal" action="${webctx}hqlExample/paramQuery" method="post">
                 <input type="hidden" name="hql" value="${code}" class="form-control" >
                        ${inputs}
                     <div class="form-group">
-                        <div class="col-sm-offset-8 col-sm-4">
-                            <button type="button" class="btn btn-default pull-right">提交</button>
+                        <div class="${btnContent}">
+                            <button type="button" class="${btn}" ${buttonStyle}>运行</button>
                         </div>
                     </div>
                 </form>

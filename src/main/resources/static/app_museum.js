@@ -3,6 +3,7 @@ let museum = {};
 museum.museums = examplePages;
 
 museum.currentPage = null;
+museum.loadAfter = [];
 museum.loadPage = function (func) {
     let next = func(),
         currentPage = museum.currentPage;
@@ -10,10 +11,16 @@ museum.loadPage = function (func) {
         next = func();
     }
     museum.currentPage = next;
+
     $.post(next.path, function (page) {
         $("#form_context").html(page);
         code_format.format();
         museum.active(next.path);
+        museum.loadAfter.filter(ele => {
+            return ele && typeof ele === 'function';
+        }).forEach(o => {
+            o(next);
+        });
     }, 'html')
 };
 

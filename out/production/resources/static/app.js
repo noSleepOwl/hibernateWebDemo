@@ -64,7 +64,10 @@ $(function () {
     $("#rest_console_button").click(() => {
         consoleStyleRest();
     });
-
+    $('body').scrollspy({target: '#navbar-example'})
+    museum.loadAfter.push(() => {
+        $(' body').scrollspy('refresh')
+    })
 });
 
 

@@ -38,6 +38,7 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('com.googlecode.log4jdbc:log4jdbc:1.2')
     implementation('com.alibaba:druid:1.1.12')
+    runtimeOnly('mysql:mysql-connector-java')
 /*    implementation('org.webjars:webjars-locator-core')
     implementation('org.webjars:sockjs-client:1.1.2')
     implementation('org.webjars:stomp-websocket:2.3.3')

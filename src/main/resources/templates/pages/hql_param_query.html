@@ -6,27 +6,387 @@
 </head>
 <body>
 <th:block th:fragment="HQL_PARAM_QUERY">
-    <script type="text/javascript">
-    
-    </script>
-    <div class="panel-heading">使用HQL进行查询(带参数)</div>
-    <div class="panel-body">
-          <pre data-code-format="sql" data-type="hql" data-argument-names="id">
+<div class="panel-heading">使用HQL进行查询(带参数)</div>
+<div class="panel-body">
+                <pre data-code-format="sql" data-type="hql"
+                     data-argument-names="id">
                select st  from    Model st     where   st.id=:id   order    by st.id
           </pre>
+    <pre data-code-format="java">
+                //调用方式 1 直接使用 jpa EntityManager 类进行创建
+              @PersistenceContext  // 注入 EntityManager
+              private EntityManager entityManager;
+              
+              public Object query() {
+                    return entityManager.createQuery("select st  from    Model st     where   st.id=:id   order    by st.id")
+                                        .getResultList();
+              }
+          </pre>
+    <pre data-code-format="java">
+            //调用方式 2 使用 springData   @Repository 注解 并且该接口继承了JpaRepository接口的类型内 使用 @Query 注解即可
+            @Repository
+            public interface Repository extends JpaRepository&lt;Object, String&gt; {
+                @Query("select st  from    Model st     where   st.id=:id   order    by st.id")
+                List&lt;Object&gt; queryAllBy();
+            }
+          </pre>
+</div>
+<div class="panel-body">
+    <div class="well">
+        添加as 关键字 和 sql 中一样,此处和上面的查询语句等效hql 对 as 后的别名查询大小写不敏感
+        但是,对类名和属性的名称是大小写敏感的 Model 写作 model 是无法识别的
     </div>
-    <div class="panel-heading">使用HQL进行查询(带多参数)</div>
-    <div class="panel-body">
-          <pre data-code-format="sql" data-type="hql" data-argument-names="id,name">
+    <pre data-code-format="sql" data-type="hql"
+         data-argument-names="id">
+               select st  from    Model as st  where   st.id=:id   order    by st.id
+          </pre>
+</div>
+<div class="panel-heading">使用HQL模糊查询</div>
+<div class="panel-body">
+                <pre data-code-format="sql" data-type="hql"
+                     data-argument-names="id">
+               select st from Model st where st.name like '%123%' order by st.id
+          </pre>
+</div>
+<div class="panel-heading">使用HQL进行查询(带多参数)</div>
+<div class="panel-body">
+                <pre data-code-format="sql" data-type="hql"
+                     data-argument-names="id,name">
                select st  from    Model st     where   st.id=:id and st.name=:name  order    by st.id
           </pre>
+</div>
+<div class="panel-heading">使用HQL排序</div>
+<div class="panel-body">
+    <div class="well">
+        和 sql 一样 默认使用 asc
     </div>
-    <div class="panel-heading">使用HQL进行查询(关联查询)</div>
-    <div class="panel-body">
-          <pre data-code-format="sql" data-type="hql" data-argument-names="name">
+    <pre data-code-format="sql" data-type="hql">
+               select hm from HomeWork hm order by hm.createTime
+          </pre>
+</div>
+<div class="panel-body">
+    <div class="well">
+        倒序排序
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+               select hm from HomeWork hm order by hm.createTime desc
+          </pre>
+</div>
+<div class="panel-body">
+    <div class="well">
+        带 asc 正排序
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+               select hm from HomeWork hm order by hm.createTime asc
+          </pre>
+</div>
+<div class="panel-body">
+    <div class="well">
+        多字段排序
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+               select hm from HomeWork hm order by hm.createTime asc,hm.updateTime desc
+          </pre>
+</div>
+<div class="panel-heading">使用HQL distinct 关键字去除重复</div>
+<div class="panel-body">
+                <pre data-code-format="sql" data-type="hql">
+              select distinct hm.content from HomeWork hm
+          </pre>
+</div>
+<div class="panel-heading">使用HQL 分组</div>
+<div class="panel-body">
+                <pre data-code-format="sql" data-type="hql">
+              select  hm.content,count(hm.content) from HomeWork hm group by hm.content
+          </pre>
+</div>
+
+<div class="panel-heading">使用HQL进行查询(关联查询)</div>
+<div class="panel-body">
+    <div class="well">
+        JPA提供了四种联结查询的方式:
+        <ul>
+            <li>使用路径表达式的隐式关联连结</li>
+            <li>在FROM句子中使用join操作符的普通联结</li>
+            <li>在from子句中使用join操作符以及用于急抓取的fetch关键字的抓取联结</li>
+            <li>where句子中的theta风格联结</li>
+        </ul>
+        下面的查询使用的是第一种 :使用路径表达式的隐式关联连结
+        这种方式只是 join 查询的一种语法糖 , 方便调用,生成的sql 和 显示的指明join 是一样的
+    </div>
+    <pre data-code-format="sql" data-type="hql"
+         data-argument-names="name">
                select st.homeWorkList from Student st where st.userInfo.name=:name
           </pre>
+</div>
+<div class="panel-body">
+    <div class="well">
+        显示的指明join 和 上面做对比
     </div>
+    <pre data-code-format="sql" data-type="hql" data-argument-names="name">
+               select st.homeWorkList from Student st  join st.userInfo if where if.name =:name
+          </pre>
+</div>
+
+<div class="panel-body">
+    <div class="well">
+        <ul>
+            <li>在FROM句子中使用join操作符的普通联结</li>
+        </ul>
+        join 方式的查询可以方便的获取对应类的属性信息
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+              select hk.content ,st.userInfo.name,st.id  from Student st join st.homeWorkList hk where hk.content = '语文作业'
+          </pre>
+</div>
+<div class="panel-body">
+    <div class="well">
+        on 条件的展示 , 此处的on 和sql 的 on 查询有一些差异 , 默认的 join 后不跟on 语句 生成的sql中会添加 on a.主键= b.主键
+        hql中 on 则是 在 sql on 条件的基础上 追加
+    </div>
+    <pre data-code-format="sql" data-type="hql" data-argument-names="id,content">
+              select hk.content ,st.userInfo.name,st.id  from Student st join st.homeWorkList hk on st.id = :id where hk.content=:content
+          </pre>
+</div>
+<div class="panel-body">
+    <div class="well">
+        join 可以指明 连接的方式 , 默认的使用的是 inner
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+              select hk.content ,st.userInfo.name,st.id  from Student st left join st.homeWorkList hk where hk.content = '语文作业'
+          </pre>
+</div>
+<div class="panel-body">
+    <div class="well">
+        right join
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+              select hk.content ,st.userInfo.name,st.id  from Student st right join st.homeWorkList hk where hk.content = '语文作业'
+          </pre>
+</div>
+<div class="panel-body">
+    <div class="well">
+        <ul>
+            <li>在from子句中使用join操作符以及用于急抓取的fetch关键字的抓取联结</li>
+        </ul>
+        和其他查询方式不同的是 fetch 会一次性的将需要的 类型加载完成
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+              select st
+                from Student st
+                join fetch st.homeWorkList
+          </pre>
+</div>
+<div class="panel-body">
+    <div class="well">
+        <ul>
+            <li>where句子中的theta风格联结</li>
+        </ul>
+        和 join 方式不同的是 join 限制了 只能有外键关联的类之间进行查询,theta风格联结没有这种限制
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+              select st
+                from Student st , Video vd
+                where st.id = vd.id
+          </pre>
+</div>
+<!--<div class="panel-body">
+    <div class="well">
+        left outer join
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+              select hk.content ,st.userInfo.name,st.id  from Student st left outer join st.homeWorkList hk where hk.content = '语文作业'
+          </pre>
+</div>-->
+<div class="panel-heading">投影查询_1_单表字段查询</div>
+<div class="panel-body">
+                <pre data-code-format="sql" data-type="hql"
+                     data-argument-names="id">
+               select st.id, st.userInfo from Student st where st.id=:id
+          </pre>
+</div>
+<div class="panel-heading">投影查询_2_实体类构造器投影</div>
+<div class="panel-body">
+                <pre data-code-format="sql" data-type="hql">
+               select new com.cn.sleep.study.example.shigongwen.model.investigate.HomeWorkInvestigate(st.content) from HomeWork st
+          </pre>
+</div>
+<div class="panel-heading">调用函数</div>
+<div class="panel-body">
+                <pre data-code-format="sql" data-type="hql">
+               select concat(st.userInfo.name,' : ',st.userInfo.age) from Student st
+          </pre>
+    <pre data-code-format="java">
+            // 可以在 这个包中找到对应数据库可用的函数 也可以继承Dialect 类 并配置 使用自己定义的函数在hql中引用
+            package org.hibernate.dialect
+            public class MySQLDialect extends Dialect {
+            ....
+                public MySQLDialect() {
+                    super();
+                    registerFunction( "octet_length", new StandardSQLFunction( "octet_length", StandardBasicTypes.LONG ) );
+                    registerFunction( "bit_length", new StandardSQLFunction( "bit_length", StandardBasicTypes.LONG ) );
+            
+                    registerFunction( "bit_count", new StandardSQLFunction( "bit_count", StandardBasicTypes.LONG ) );
+                    registerFunction( "encrypt", new StandardSQLFunction( "encrypt", StandardBasicTypes.STRING ) );
+                    registerFunction( "md5", new StandardSQLFunction( "md5", StandardBasicTypes.STRING ) );
+                    registerFunction( "sha1", new StandardSQLFunction( "sha1", StandardBasicTypes.STRING ) );
+                    registerFunction( "sha", new StandardSQLFunction( "sha", StandardBasicTypes.STRING ) );
+            
+                    registerFunction( "concat", new StandardSQLFunction( "concat", StandardBasicTypes.STRING ) );
+                    .....
+                }
+                ......
+            }
+            
+        </pre>
+</div>
+<div class="panel-body">
+                <pre data-code-format="sql" data-type="hql">
+               select second(st.createTime),minute(st.createTime),hour(st.createTime),day(st.createTime),month(st.createTime),year(st.createTime) from Student st
+          </pre>
+</div>
+<div class="panel-heading">多态查询</div>
+<div class="panel-body">
+    <div class="well">
+        可以查询出一个类的实例和其所有的子类,BaseModel
+        为父类由于使用的是@MappedSuperclass注解配置并非是@Entity映射的一个实体 , 需要额外的添加
+        类的完全限定名才可以实现
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+               select o from com.cn.sleep.study.example.shigongwen.base.BaseModel o
+  </pre>
+    <pre data-code-format="java">
+        
+        /**
+         * 基础类型
+         */
+        @MappedSuperclass
+        public abstract class BaseModel {
+            @Id
+            @GenericGenerator(name = "user-uuid", strategy = "uuid")
+            @GeneratedValue(generator = "user-uuid")
+            @Column(name = "id", nullable = false)
+            private String id;
+            @Temporal(TemporalType.TIMESTAMP)
+            @CreationTimestamp
+            private Date createTime;
+            @Temporal(TemporalType.TIMESTAMP)
+            @UpdateTimestamp
+            private Date updateTime;
+            ... 省略getter ,setter 方法
+        }
+        public class Student extends BaseModel {
+            ...
+        }
+        
+        public class HomeWork extends BaseModel {
+            ...
+        }
+        public class Teacher extends BaseModel {
+            ...
+        }
+    </pre>
+</div>
+<div class="panel-body">
+    <div class="well">
+        可以查询出一个类的实例和其所有的子类,如果这个类是object则可以查询所有的实体
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+        select o from java.lang.Object o
+    </pre>
+</div>
+<div class="panel-body">
+    <div class="well">
+        可以使用 type 函数 进行类型的区分 只查询该类型下的某一个子类
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+          select o from Video o where type(o) = CourseVideo
+    </pre>
+</div>
+<div class="panel-body">
+    <div class="well">
+        type 函数也支持 in 语句 进行查询 需要注意的是 只使用 @MappedSuperclass
+        注解配置的类,不适用于type 的查询方法 仅限于使用@Entity注解配置的有继承关系的实体之间
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+         select o from Video o where type(o) in (CourseVideo,MissionVideo)
+    </pre>
+</div>
+
+<div class="panel-heading">子查询</div>
+<div class="panel-body">
+    <div class="well">
+        jpa支持where 子句中的查询.from子句中的子查询不受支持.
+        但是可以使用@org.hibernate.annotation.Formula 注解将子查询映射到实体属性上
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+               select w from HomeWork w where w.content in (select ht.content from HomeWork ht group by ht.content)
+          </pre>
+</div>
+<div class="panel-body">
+    <div class="well">
+        @org.hibernate.annotation.Formula 例子
+    </div>
+    <pre data-code-format="java">
+        @Entity
+        public class CourseInfo extends BaseModel {
+        
+            private String schoolYear;
+            private Integer term;
+            @ManyToOne
+            @JoinColumn(name = "course_id")
+            private Course course;
+            //需要注意的是,此处的 语句为 原生的sql ,
+            //hibernate 会将所有没有别名前缀的字段识别为当前实体的字段 所以 关联的表必须启用别名,否则生成的sql会出错
+            @Formula("(SELECT CS.COURSE_NAME FROM COURSE CS WHERE CS.ID = COURSE_ID)")
+            private String courseName;
+        ..... 省略getter 和 setter 方法
+        }
+      </pre>
+</div>
+<div class="panel-body">
+    <pre data-code-format="sql" data-type="hql">
+       select w from CourseInfo w
+  </pre>
+</div>
+
+<div class="panel-body">
+    <div class="well">
+        量化操作: all  例如:  子查询中所有的结果都等于 '语文作业' 此结果才为 true
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+              select w from HomeWork w where '语文作业' = all  (select ht.content from HomeWork ht group by ht.content)
+          </pre>
+</div>
+<div class="panel-body">
+    <div class="well">
+        量化操作: any 例如: 子查询中有一个结果是 '语文作业' 此条件的结果将为 true
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+              select w from HomeWork w where '语文作业' = any  (select ht.content from HomeWork ht group by ht.content)
+          </pre>
+</div>
+<div class="panel-body">
+    <div class="well">
+        量化操作: exists 例如: 只要子查询有结果返回则此条件为真不管是返回什么
+    </div>
+    <pre data-code-format="sql" data-type="hql">
+              select w from HomeWork w where exists  (select ht.content from HomeWork ht group by ht.content)
+          </pre>
+</div>
+<!--<div class="panel-body">
+<div class="well">
+可以在where中使用type 函数动态的限制查询结果的范围
+</div>
+<pre data-code-format="sql" data-type="hql">
+select o from com.cn.sleep.study.example.shigongwen.base.BaseModel o where o.class =Student.class
+</pre>
+</div>
+<div class="panel-body">
+<pre data-code-format="sql" data-type="hql">
+select o from com.cn.sleep.study.example.shigongwen.base.BaseModel o where type(o) in (com.cn.sleep.study.example.shigongwen.model.Student,com.cn.sleep.study.example.shigongwen.model.Teacher)
+</pre>
+</div>-->
 </th:block>
 </body>
 </html>

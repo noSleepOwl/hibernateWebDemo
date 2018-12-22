@@ -24,7 +24,7 @@ public class LogFilter extends Filter<ILoggingEvent> {
     private LoggerMessage createMessage(ILoggingEvent event, int type) {
         String msg = event.getMessage();
         if (type == 1) {
-            msg = SQLUtils.formatMySql(msg);
+            msg = SQLUtils.formatMySql(msg).trim();
         }
 
         LoggerMessage loggerMessage = new LoggerMessage(

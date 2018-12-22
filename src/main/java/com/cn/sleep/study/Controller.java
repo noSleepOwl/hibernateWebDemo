@@ -16,6 +16,7 @@ public class Controller {
     private static final String HQL_PARAM_QUERY = "pages/hql_param_query :: HQL_PARAM_QUERY";
     private static final String SAVE_ALL_EXAMPLE = "pages/shigongwen/save_all :: SAVE_ALL_EXAMPLE";
     private static final String FILTER_TEST_DEMO = "pages/shigongwen/filter_test :: FILTER_TEST_DEMO";
+    private static final String SUBSELECT_ENTITY_TEST = "pages/shigongwen/subselect_entity_test :: SUBSELECT_ENTITY_TEST";
 
     @Autowired
     private Repository repository;
@@ -40,16 +41,16 @@ public class Controller {
         return modelAndView;
     }
 
-    @RequestMapping("hql_query")
+  /*  @RequestMapping("hql_query")
     @Museum("HQL查询例子")
     @ResponseBody
     public ModelAndView hql_query() {
         ModelAndView modelAndView = new ModelAndView(HQL_QUERY);
         return modelAndView;
-    }
+    }*/
 
     @RequestMapping("hql_param_query")
-    @Museum("HQL带参数查询例子")
+    @Museum("HQL查询例子")
     @ResponseBody
     public ModelAndView hql_param_query() {
         ModelAndView modelAndView = new ModelAndView(HQL_PARAM_QUERY);
@@ -69,6 +70,14 @@ public class Controller {
     @ResponseBody
     public ModelAndView filter_test_demo() {
         ModelAndView modelAndView = new ModelAndView(FILTER_TEST_DEMO);
+        return modelAndView;
+    }
+
+    @RequestMapping("subselect_entity_test")
+    @Museum("子查询实体映射")
+    @ResponseBody
+    public ModelAndView subselect_entity_test() {
+        ModelAndView modelAndView = new ModelAndView(SUBSELECT_ENTITY_TEST);
         return modelAndView;
     }
 }

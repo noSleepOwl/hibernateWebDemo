@@ -11,13 +11,12 @@ import java.text.DateFormat;
 public class LogFilter extends Filter<ILoggingEvent> {
     @Override
     public FilterReply decide(ILoggingEvent event) {
-        if (event.getLoggerName().equals("jdbc.sqlonly")) {
-
+        if (event.getLoggerName().equals("jdbc.sqlonly") && event.getLevel().levelStr.equals("INFO")) {
             createMessage(event, 1);
         }
-        if (event.getLoggerName().equals("org.hibernate.type.descriptor.sql.BasicBinder")) {
+       /* if (event.getLoggerName().equals("org.hibernate.type.descriptor.sql.BasicBinder")) {
             createMessage(event, 2);
-        }
+        }*/
         return FilterReply.ACCEPT;
     }
 

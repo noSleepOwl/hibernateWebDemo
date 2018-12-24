@@ -14,7 +14,6 @@ museum.loadPage = function (func) {
 
     $.post(next.path, function (page) {
         $("#form_context").html(page);
-        code_format.format();
         museum.active(next.path);
         museum.loadAfter.filter(ele => {
             return ele && typeof ele === 'function';
@@ -51,6 +50,35 @@ museum.active = path => {
             $(ele).removeClass("active");
         }
     })
+};
+museum.createLinkElement = (id, isActivate, text) => {
+    return ` <li class="${isActivate ? 'active' : ""}">
+                <a href="#${id}">${text}</a>
+             </li>`;
+};
+museum.initTitleLink = () => {
+    function guid() {
+        function S4() {
+            return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+        }
+
+        return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+    }
+
+    let linkElement = '';
+
+    $('#form_context .panel-heading').each((index, ele) => {
+        let id = guid();
+        $(ele).attr('id', id);
+        linkElement += museum.createLinkElement(id, !linkElement, $(ele).text());
+    })
+    $(' #page_content_list').html(linkElement);
+    $(' body').scrollspy('refresh')
+
+};
+
+museum.changeBrandName = function (page) {
+    $('#brand_name').text(page.name);
 };
 
 $(() => {

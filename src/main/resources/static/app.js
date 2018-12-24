@@ -64,10 +64,19 @@ $(function () {
     $("#rest_console_button").click(() => {
         consoleStyleRest();
     });
-    $('body').scrollspy({target: '#navbar-example'})
+    $('body').scrollspy({target: '.navbar.navbar-default.navbar-fixed-top'});
+    $('.navbar.navbar-default.navbar-fixed-top').on('activate.bs.scrollspy', function () {
+        let title = $('#page_content_list').find(".active").text();
+        if (title !== $("#navbarDrop1").text()) {
+            $("#navbarDrop1").html(title + '<span class="caret"></span>');
+        }
+    });
+    /**
+     * 页面加载完成之后指定的函数
+     */
     museum.loadAfter.push(() => {
         $(' body').scrollspy('refresh')
-    })
+    }, museum.initTitleLink, code_format.format, museum.changeBrandName)
 
 
 });

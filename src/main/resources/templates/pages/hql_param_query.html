@@ -46,10 +46,7 @@ select st  from    Model as st  where   st.id=:id   order    by st.id
 </div>
 <div class="panel-heading">使用HQL模糊查询</div>
 <div class="panel-body">
-                <pre data-code-format="sql" data-type="hql"
-                     data-argument-names="id">
-select st from Model st where st.name like '%123%' order by st.id
-          </pre>
+    <pre data-code-format="sql" data-type="hql">select st from Model st where st.name like '%123%' order by st.id</pre>
 </div>
 <div class="panel-heading">使用HQL进行查询(带多参数)</div>
 <div class="panel-body">
@@ -328,7 +325,7 @@ select w from HomeWork w where w.content in (select ht.content from HomeWork ht 
 </div>
 <div class="panel-body">
     <div class="well">
-@org.hibernate.annotation.Formula 例子
+        @org.hibernate.annotation.Formula 例子
     </div>
     <pre data-code-format="java">
 @Entity

@@ -27,7 +27,7 @@ public class Controller {
         return "index";
     }
 
-    @RequestMapping("example_1")
+ /*   @RequestMapping("example_1")
     @ResponseBody
     public ModelAndView testSubmit() {
         ModelAndView modelAndView = new ModelAndView(EXAMPLE_1);
@@ -40,9 +40,9 @@ public class Controller {
     public ModelAndView ex_2Page() {
         ModelAndView modelAndView = new ModelAndView(EXAMPLE_2);
         return modelAndView;
-    }
+    }*/
 
-  /*  @RequestMapping("hql_query")
+    /*@RequestMapping("hql_query")
     @Museum("HQL查询例子")
     @ResponseBody
     public ModelAndView hql_query() {

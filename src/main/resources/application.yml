@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
 #    url: jdbc:log4jdbc:h2:file:~/.h2/testdb # 生成文件
-    url: jdbc:log4jdbc:h2:mem:TEST;MODE=Mysql;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATE SCHEMA IF NOT EXISTS MYAPP  #内存库
+    url: jdbc:log4jdbc:h2:mem:TEST #内存类型数据库
     username: sa
     password: 123456
     driver-class-name: net.sf.log4jdbc.DriverSpy

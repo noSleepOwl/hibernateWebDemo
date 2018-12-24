@@ -45,6 +45,9 @@ hs_err_pid*
 *.iml
 *.ipr
 /out/
+### typescript
+src/main/resources/static/js/
+node_modules
 
 ### NetBeans ###
 /nbproject/private/
@@ -52,3 +55,4 @@ hs_err_pid*
 /dist/
 /nbdist/
 /.nb-gradle/
+

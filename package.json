@@ -1,0 +1,26 @@
+{
+  "name": "hibernate_study",
+  "version": "1.0.0",
+  "description": "hibernate studye",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noSleepOwl/hibernateWebDemo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noSleepOwl/hibernateWebDemo/issues"
+  },
+  "homepage": "https://github.com/noSleepOwl/hibernateWebDemo#readme",
+  "dependencies": {
+    "@types/bootstrap": "^4.1.4",
+    "@types/highlight.js": "^9.1.2-alpha",
+    "@types/jquery": "^3.3.28",
+    "@types/jquery.form": "^3.26.30",
+    "highlight": "^0.2.4"
+  }
+}

@@ -1,59 +1,64 @@
-let code_format = {
-    static_field: {
+///<reference path="../gloable/gloable.d.ts"/>
+
+namespace code_format {
+    let static_field: {
         TYPE_HQL: 'hql'
-    },
-    initContent: function (self, language, code) {
+    };
+
+    function initContent(self: JQuery, language: string, code: string): void {
         let content = `<code class="hljs ${language}">${code}</code>`;
         self.html(content);
         $('code', self).each((index, block) => {
             hljs.highlightBlock(block);
         })
-    },
-    format: () => {
+    }
+
+    function format(): void {
         $('body pre[data-code-format]').each(function () {
             let self = $(this),
-                language = self.attr('data-code-format'),
+                language = <string>self.attr('data-code-format'),
                 code = self.text().trim(),
                 type = self.data('type'),
-                showBack = self.data('showBack'),
+                showBack = <string | Function> self.data('showBack'),
                 argumentNames = self.data('argumentNames');
+
             if (showBack && typeof showBack === 'string') {
-                showBack = window[showBack];
+                showBack = <Function>window[showBack];
             }
 
-            code_format.initContent(self, language, code);
-            if (type === code_format.static_field.TYPE_HQL) {
+            initContent(self, language, code);
+            if (type === static_field.TYPE_HQL) {
                 self.wrap('<div class="col-sm-9"></div>')
-                code_format.hqlShowBack(self, showBack, argumentNames, code);
+                hqlShowBack(self, <Function>showBack, argumentNames, code);
             } else {
                 self.wrap('<div class="col-sm-12"></div>')
             }
         })
-    },
-    hqlShowBack: (self, showBack, argumentNames, code) => {
+    }
+
+    function hqlShowBack(self: JQuery, showBack: Function, argumentNames: string, code: string): void {
         let inputs = "";
         if (argumentNames) {
-            inputs = argumentNames.split(',').map(code_format.createInput).join("");
+            inputs = argumentNames.split(',').map(createInput).join("");
         }
-
-        let form = code_format.createForm(inputs, code, self);
-        form = $(form);
-
-        $('button', form).click(() => {
-            // code_format.clearConsole();
-            code_format.submit(form, showBack);
+        let form = createForm(inputs, code, self);
+        let $form = $(form);
+        $('button', $form).click(() => {
+            submit($form, showBack);
         });
         self.parent().after(form);
-    },
-    createInput: (name) => {
+    }
+
+    function createInput(name: string): string {
         return `<div class="form-group">
                         <label for="inputPassword3" class="col-sm-2 control-label">${name}:</label>
                         <div class="col-sm-10">
                             <input type="text" name="${name}" class="form-control" >
                         </div>
                     </div>`;
-    },
-    createForm: (inputs, code, codeContent) => {
+    }
+
+    function createForm(inputs: string, code: string, codeContent: JQuery): string {
         let btn = 'btn btn-info pull-right';
         let btnContent = 'col-sm-offset-8 col-sm-4';
         let buttonStyle = '';
@@ -71,28 +76,32 @@ let code_format = {
                             <button type="button" class="${btn}" ${buttonStyle}>运行</button>
                         </div>
                     </div>
-                </form>ts
+                </form>
             </div>`;
-    },
-    submit: (form, back) => {
-        $('form', form).ajaxSubmit(function (data) {
+    }
+
+    function submit(form: JQuery, back?: Function): void {
+        $('form', form).ajaxSubmit(function (data: any): void {
             if (data && back && typeof back === 'function') {
                 back(data);
             } else {
-                code_format.showConsole(data);
+                showConsole(data);
             }
         })
-    },
-    clearConsole: function () {
+    }
+
+    function clearConsole(): void {
         $("#content").empty();
-    },
-    showConsole: function (data) {
+    }
+
+    function showConsole(data: any): void {
         let str = '';
         if (typeof data === 'object') {
             str = JSON.stringify(data);
         }
         $('#content').append(`<div class="well">${str}</div>`)
     }
-};
+}
+
 
 

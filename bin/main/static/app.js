@@ -30,38 +30,6 @@ $(function () {
         }
     }
 
-<<<<<<< HEAD
-=======
-
-    function loadPage(func) {
-        let next = func();
-        if (currentPage && currentPage === next) {
-            next = func();
-        }
-        currentPage = next;
-        $.post(next, function (page) {
-            $("#form_context").html(page);
-            code_format.format();
-        }, 'html')
-    }
-
-    function nextPage() {
-        loadPage(() => {
-            let next = examplePages.shift()
-            examplePages.push(next);
-            return next;
-        })
-    }
-
-    function prevPage() {
-        loadPage(() => {
-            let next = examplePages.pop()
-            examplePages.unshift(next);
-            return next;
-        })
-    }
-
->>>>>>> 新增java代码格式化
     function createConnsoleInfo(logMessage) {
         if (logMessage.type == 1) {
             let msg = `<code class="sql">${logMessage.body}</code>`;

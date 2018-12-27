@@ -27,9 +27,9 @@ public class Controller {
         return "index";
     }
 
-    @RequestMapping
+    @RequestMapping("start")
     public String adminLTE() {
-        return "admin_lte/layout/starter";
+        return "admin_lte_temp/layout/starter";
     }
 
  /*   @RequestMapping("example_1")

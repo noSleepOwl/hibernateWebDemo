@@ -1,2 +1,2 @@
 console.log("hello world ")
-alert('ok ')
+// alert('ok ')

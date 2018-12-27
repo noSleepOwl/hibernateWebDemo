@@ -45,7 +45,9 @@ dependencies {
     implementation('org.webjars:bootstrap:4.1.3')
     implementation('org.webjars:jquery:3.3.1-1')*/
 
-    // 此包会导致 BlockingQueue 在多线程中 不可用.... 不知道为什么...
+    // 此包会导致 BlockingQueue 在多线程中 不可用....
+    // 不知道为什么...  妈的。。。 我使用的java10 会导致 classpath 解析不正确。。 尼玛 static 文件夹死活加载不了。。
+    // 妈的冤枉它了，加载不了的原因是，我没有设置 项目的根目录地址，我定义了一个没有名称的控制器，导致其他的地址也优先跳转那个控制器。。。所有的都加载那个控制器指定的html了。。。
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
     runtimeOnly('com.h2database:h2')
     testImplementation('org.springframework.boot:spring-boot-starter-test')

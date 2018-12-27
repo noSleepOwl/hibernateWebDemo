@@ -27,6 +27,11 @@ public class Controller {
         return "index";
     }
 
+    @RequestMapping
+    public String adminLTE() {
+        return "admin_lte/layout/starter";
+    }
+
  /*   @RequestMapping("example_1")
     @ResponseBody
     public ModelAndView testSubmit() {

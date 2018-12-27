@@ -50,6 +50,7 @@ public class RouterAop {
         List<MuseumModel> museumModels = Stream.of(Controller.class.getDeclaredMethods())
                 .filter(o -> o.getAnnotation(RequestMapping.class) != null)
                 .filter(o -> !o.getName().equals(joinPoint.getSignature().getName()))
+                .filter(o -> o.getAnnotation(RequestMapping.class).value().length > 0)
                 .map(o -> {
                     RequestMapping mapping = o.getAnnotation(RequestMapping.class);
                     Museum museum = o.getAnnotation(Museum.class);

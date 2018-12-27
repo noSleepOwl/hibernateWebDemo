@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,7 +23,7 @@ public class RouterAop {
     @Autowired
     private HttpServletRequest request;
 
-    @Pointcut("execution(public String com.cn.sleep.study.Controller.toPage())")
+    @Pointcut("@annotation(com.cn.sleep.study.pagerouter.Router)")
     public void indexPage() {
     }
 
@@ -49,7 +50,7 @@ public class RouterAop {
                 .getAnnotation(RequestMapping.class);
         List<MuseumModel> museumModels = Stream.of(Controller.class.getDeclaredMethods())
                 .filter(o -> o.getAnnotation(RequestMapping.class) != null)
-                .filter(o -> !o.getName().equals(joinPoint.getSignature().getName()))
+                .filter(o -> Objects.isNull(o.getAnnotation(Router.class)))
                 .map(o -> {
                     RequestMapping mapping = o.getAnnotation(RequestMapping.class);
                     Museum museum = o.getAnnotation(Museum.class);

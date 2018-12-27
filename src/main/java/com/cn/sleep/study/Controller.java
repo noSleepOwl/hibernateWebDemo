@@ -1,6 +1,7 @@
 package com.cn.sleep.study;
 
 import com.cn.sleep.study.pagerouter.Museum;
+import com.cn.sleep.study.pagerouter.Router;
 import com.cn.sleep.study.test.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,7 @@ public class Controller {
     private Repository repository;
 
     @RequestMapping("test")
+    @Router
     public String toPage() {
         return "index";
     }

@@ -39,43 +39,65 @@ let appMuseum = {
      * @param active 是否激活
      * @returns {string}
      */
-    museumItem: (href, icon, name, active) => {
-        return ` <li class="${active ? "active" : ''}"><a href="${href}" data-toggle="ajaxLoad"><i class="${icon}"></i> ${name}</a></li>`;
+    museumItem: (href, icon, name, active, haveSub, subHtml) => {
+        let subEle = '';
+        if (haveSub && subHtml) {
+            subEle = `<ul class="treeview-menu">
+                   ${subHtml}
+                </ul>`;
+        }
+        return ` <li class="${active ? "active" : ''} ${haveSub ? 'treeview' : ''}"><a href="${href}" data-toggle="ajaxLoad"><i class="${icon}"></i> ${name}</a>${subHtml}</li>`;
     },
     /**
      * 菜单数据加载
      */
-    loadData: () => {
-
-    },
-    createMuseum: () => {
-        let data = appMuseum.loadData(),
-            root = appMuseum.root,
-            html = appMuseum.parseDataToHtml(data);
-        root.html(html);
+    loadData: (back) => {
+        $.post(tools.paths.sys.museum, function (data) {
+            if (tools.isFunc(back)) {
+                back(data);
+            }
+        });
     },
     /**
-     * 创建菜单
+     * 菜单创建加载
+     */
+    createMuseum: () => {
+        appMuseum.loadData((data) => {
+            if (data.status === 0 || !data.data || data.data.length === 0) {
+                return;
+            }
+            let root = appMuseum.root,
+                html = appMuseum.parseDataToHtml(data.data);
+            root.html(html);
+        });
+    },
+    /**
+     * 生成菜单html
      */
     parseDataToHtml: (data) => {
         let html = [];
-        if (!data) {
-            return "";
+        if (data && data.length > 0) {
+            $.each(data, function (index, itemData) {
+                let result = '',
+                    subHtml = '',
+                    subMuseum = itemData.subMuseum,
+                    haveSub = subMuseum && subMuseum.length > 0;
+                if (haveSub) {
+                    subHtml = appMuseum.parseDataToHtml(subMuseum);
+                }
+                if (itemData.type === appMuseum.TYPE_LABEL) {
+                    result = appMuseum.museumLabel(itemData.name) + subHtml;
+                }
+                if (itemData.type === appMuseum.TYPE_PARENT) {
+                    result = appMuseum.museumTreeView(false, false, itemData.icon, itemData.name, itemData.pullRightIcon, subHtml);
+                }
+                if (itemData.type === appMuseum.TYPE_ITEM) {
+                    result = appMuseum.museumItem(itemData.href, itemData.icon, itemData.name, false, haveSub, subHtml);
+                }
+                html.push(result);
+            });
         }
-        $.each(data, function (index, item) {
-            let result = '';
-            if (item.type === appMuseum.TYPE_LABEL) {
-                result = appMuseum.museumLabel(item.name);
-            }
-            if (item.type === appMuseum.TYPE_PARENT) {
-                let items = appMuseum.parseDataToHtml(data.items);
-                result = appMuseum.museumTreeView(false, false, item.icon, item.name, item.pullRightIcon, items);
-            }
-            if (item.type === appMuseum.TYPE_ITEM) {
-                result = appMuseum.museumItem(item.href, item.icon, item.name, false);
-            }
-            html.push(result);
-        });
+
         return html.join("");
     }
 };

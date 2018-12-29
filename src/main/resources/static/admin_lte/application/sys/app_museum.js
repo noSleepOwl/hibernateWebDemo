@@ -41,12 +41,14 @@ let appMuseum = {
      */
     museumItem: (href, icon, name, active, haveSub, subHtml) => {
         let subEle = '';
+        let openIcon = '';
         if (haveSub && subHtml) {
             subEle = `<ul class="treeview-menu">
                    ${subHtml}
                 </ul>`;
+            openIcon = '<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>';
         }
-        return ` <li class="${active ? "active" : ''} ${haveSub ? 'treeview' : ''}"><a href="${href}" data-toggle="ajaxLoad"><i class="${icon}"></i> ${name}</a>${subHtml}</li>`;
+        return ` <li class="${active ? "active" : ''} ${haveSub ? 'treeview' : ''}"><a href="${href}" data-toggle="ajaxLoad"><i class="${icon}"></i> ${name+openIcon}</a>${subEle}</li>`;
     },
     /**
      * 菜单数据加载

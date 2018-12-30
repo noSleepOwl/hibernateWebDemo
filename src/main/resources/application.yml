@@ -2,20 +2,10 @@ server:
   port: 5001
 spring:
   datasource:
-#    url: jdbc:log4jdbc:h2:file:~/.h2/testdb # 生成文件
     url: jdbc:log4jdbc:h2:mem:TEST #内存类型数据库
     username: sa
     password: 123456
     driver-class-name: net.sf.log4jdbc.DriverSpy
-#    url: jdbc:log4jdbc:mysql://192.168.1.114:3306/test?useUnicode=true&autoReconnect=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Hongkong
-#    username: root
-#    password: 123456
-#    driver-class-name: net.sf.log4jdbc.DriverSpy
-    data: classpath:sql/init-sql.sql #指定数据库脚本
-    initialization-mode: always
-    continue-on-error: true  # 报错继续执行
-    sql-script-encoding: UTF-8  #编码格式
-    platform: all  # 指定数据源类型
   h2:
     console:
       path: /h2-console  #web控制台路径
@@ -29,5 +19,3 @@ spring:
 
   thymeleaf:
     cache: false
-logging:
-  config: classpath:log4j2.xml

@@ -8,5 +8,11 @@ base.initMuseum = function () {
 };
 
 $(() => {
-    base.initMuseum();
+    var html = template("test", {
+        user: {
+            name: 'aui'
+        }
+    });
+    console.log(html)
+    // base.initMuseum();
 });

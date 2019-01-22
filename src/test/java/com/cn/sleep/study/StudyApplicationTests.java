@@ -9,9 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.stream.Stream;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
 public class StudyApplicationTests {
     @Autowired
     private MuseumRepository museumRepository;
@@ -24,4 +23,16 @@ public class StudyApplicationTests {
         museumRepository.saveAll(museumList);
     }
 
+    @Test
+    public void createMethod() {
+        String target = "participate teamName teamLeader evaluation  members personNums groupRemark groupGrade  groupScore personRemark  fileName  filePath memberScoringList whichGroup";
+        Stream.of(target.split("\\s")).forEach(str -> {
+
+            str = str.trim();
+            if(str.length() > 0 ){
+                str = "String  get"+str.substring(0, 1).toUpperCase() + str.substring(1)+"();";
+                System.out.println(str);
+            }
+        });
+    }
 }
